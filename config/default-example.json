@@ -1,0 +1,11 @@
+{
+    "Mysql": {
+      "banco": ""
+      "user": "",
+      "pwd": "",
+      "host": "localhost"
+    },
+    "api": {
+      "port": 3000
+    }
+  }
