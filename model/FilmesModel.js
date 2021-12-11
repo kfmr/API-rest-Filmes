@@ -21,11 +21,11 @@ class Filme {
             nome: this.nome,
             genero: this.genero,
             diretor: this.diretor
-            
+
         })
         this.id = result.id,
-        this.createdAt = result.createdAt,
-        this.updatedAt = result.updatedAt
+            this.createdAt = result.createdAt,
+            this.updatedAt = result.updatedAt
     }
 
     async atualizar() {
@@ -39,36 +39,32 @@ class Filme {
 
         fields.forEach((field) => {
             const value = this[field]
-            if((typeof value === 'string' && value.length > 0)) {
+            if ((typeof value === 'string' && value.length > 0)) {
                 validFields[field] = value
             } else {
                 throw new Error("Campo não pode ser vazio")
             }
 
         })
-// retorna lista com o nome das chaves
-        if(Object.keys(validFields).length === 0) {
+        // retorna lista com o nome das chaves
+        if (Object.keys(validFields).length === 0) {
             throw new Error("Não foram fornecidos dados para atualizar")
         }
 
         await filmeSchema.atualizar(this.id, validFields)
     }
 
-    async deletar () {
-        
+    async deletar() {
+
         try {
-            const Idexists = filmeSchema.getByID(this.id)
-            if(Idexists) {
-                await filmeSchema.deletar(id)
-            } 
+            await filmeSchema.deletar(this.id)
+        } catch (error) {
+            throw new Error("Registro não existente")
+
         }
-            catch(error) {
-                throw new Error("Registro não existente")
-    
-            }    
 
     }
-    
+
 }
 
-module.exports  = Filme
+module.exports = Filme

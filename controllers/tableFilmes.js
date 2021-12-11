@@ -3,27 +3,33 @@ const filmeSchema = require('../database/schema')
 
 // exportar métodos do sequelize
 module.exports = {
-    async listar () {
+    async listar() {
         return await filmeSchema.findAll()
     },
     inserir(filme) {
         return filmeSchema.create(filme)
     },
-    async getByID (id) {
+    async getByID(id) {
         return await filmeSchema.findByPk(id)
     },
 
     async atualizar(id, validFields) {
         return await filmeSchema.update(validFields, {
-            where: {id: id}
+            where: {
+                id: id
+            }
         })
 
     },
-    async deletar(id){
+    async deletar(id) {
+        getByID(id)
         return await filmeSchema.destroy({
-            where: {id: id}})
+            where: {
+                id: id
+            }
+        })
 
 
 
-        }
+    }
 }
