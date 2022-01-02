@@ -1,7 +1,9 @@
+const req = require('express/lib/request')
 const filmeSchema = require('../controllers/tableFilmes')
 const {
     errors
 } = require('../erros/NotFound')
+const NotEmpty = require('../erros/NotEmpty')
 
 class Filme {
     constructor({
@@ -32,7 +34,7 @@ class Filme {
             if ((typeof value === 'string' && value.length > 0)) {
                 validFields[field] = value
             } else {
-                throw new Error("Campo não pode ser vazio")
+                throw new NotEmpty(field)
             }
 
         })

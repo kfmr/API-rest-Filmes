@@ -7,13 +7,5 @@ class NotFound extends Error {
     }
 }
 
-class NotEmpty extends Error {
-    constructor(campo) {
-        super(`O ${campo} não pode ser vazio`)
-    }
-}
 
-module.exports = {
-    NotFound,
-    NotEmpty
-}
+module.exports = NotFound
