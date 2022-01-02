@@ -1,8 +1,5 @@
-const req = require('express/lib/request')
 const filmeSchema = require('../controllers/tableFilmes')
-const {
-    errors
-} = require('../erros/NotFound')
+const NotFound = require('../erros/NotFound')
 const NotEmpty = require('../erros/NotEmpty')
 
 class Filme {
@@ -61,13 +58,13 @@ class Filme {
             if ((typeof value === 'string' && value.length > 0)) {
                 validFields[field] = value
             } else {
-                throw new Error("Campo não pode ser vazio")
+                throw new NotEmpty(field)
             }
 
         })
         // retorna lista com o nome das chaves
         if (Object.keys(validFields).length === 0) {
-            throw new erro
+            throw new NotEmpty(field)
         }
 
         await filmeSchema.atualizar(this.id, validFields)
@@ -78,26 +75,25 @@ class Filme {
         //try {
         const deletar = await filmeSchema.deletar(this.id)
         if (!deletar) {
-            throw new Error("Registro não existente")
+            throw new NotFound.NotFound()
+            //}
+            //catch (error) {
+            //     throw new Error("Registro não existente")
+
+            // }
+
+
+
         }
-        //}
-        //catch (error) {
-        //     throw new Error("Registro não existente")
 
-        // }
+        /*  async getByID(this) {
+             try {
+                 const get = await filmeSchema.getByID(this.id)
+             } catch (error) {
+                 throw new NotFound.NotFound()
+             }
 
-
-
+         } */
     }
-
-    /*  async getByID(this) {
-         try {
-             const get = await filmeSchema.getByID(this.id)
-         } catch (error) {
-             throw new NotFound.NotFound()
-         }
-
-     } */
 }
-
 module.exports = Filme

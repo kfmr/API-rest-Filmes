@@ -2,6 +2,7 @@ const router = require('express').Router()
 const Filme = require('../model/FilmesModel')
 const schema = require('./tableFilmes')
 const errors = require('../erros/NotFound')
+const NotEmpty = require('../erros/NotEmpty')
 
 
 
@@ -17,7 +18,15 @@ router.post('/', async (req, res) => {
         await insertFilme.criar()
         res.status(201).json(insertFilme)
     } catch (error) {
-        res.status(400).json(error.message)
+        if (error instanceof NotEmpty) {
+            res.status(404).send(JSON.stringify({
+                "mensagem": error.message,
+                "id": error.idError,
+                "name": error.name
+            }))
+        } else {
+            res.status(400).send()
+        }
     }
 })
 
@@ -28,6 +37,7 @@ router.get('/:id', async (req, res) => {
         const result = await schema.getByID(id)
         res.status(200).send(result)
     } catch (error) {
+        console.log(error)
         if (error instanceof errors.NotFound) {
             res.status(404).send(JSON.stringify({
                 "mensagem": error.message,
@@ -52,7 +62,15 @@ router.put('/:id', async (req, res) => {
         await filme.atualizar()
         res.status(204).end()
     } catch (error) {
-        res.status(404).send(error.message)
+        if (error instanceof NotEmpty) {
+            res.status(404).send(JSON.stringify({
+                "mensagem": error.message,
+                "id": error.idError,
+                "name": error.name
+            }))
+        } else {
+            res.status(500).send()
+        }
     }
 
 })
