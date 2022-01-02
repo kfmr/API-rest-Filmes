@@ -1,5 +1,5 @@
 const filmeSchema = require('../database/schema')
-
+const errors = require('../erros/NotFound')
 
 // exportar métodos do sequelize
 module.exports = {
@@ -10,7 +10,11 @@ module.exports = {
         return filmeSchema.create(filme)
     },
     async getByID(id) {
-        return await filmeSchema.findByPk(id)
+        const found = await filmeSchema.findByPk(id)
+        if (!found) {
+            throw new errors.NotFound()
+        }
+        return found
     },
 
     async atualizar(id, validFields) {
@@ -22,7 +26,6 @@ module.exports = {
 
     },
     async deletar(id) {
-        getByID(id)
         return await filmeSchema.destroy({
             where: {
                 id: id

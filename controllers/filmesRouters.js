@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const Filme = require('../model/FilmesModel')
 const schema = require('./tableFilmes')
+const errors = require('../erros/NotFound')
+
 
 
 router.get('/', async (req, res) => {
@@ -9,20 +11,32 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const data = req.body
-    const insertFilme = new Filme(data)
-    await insertFilme.criar()
-    res.status(201).json(insertFilme)
+    try {
+        const data = req.body
+        const insertFilme = new Filme(data)
+        await insertFilme.criar()
+        res.status(201).json(insertFilme)
+    } catch (error) {
+        res.status(400).json(error.message)
+    }
 })
 
 
 router.get('/:id', async (req, res) => {
-    const id = req.params.id
-    const result = await schema.getByID(id)
-    if (!result) {
-        res.status(400).send()
-    } else {
+    try {
+        const id = req.params.id
+        const result = await schema.getByID(id)
         res.status(200).send(result)
+    } catch (error) {
+        if (error instanceof errors.NotFound) {
+            res.status(404).send(JSON.stringify({
+                "mensagem": error.message,
+                "id": error.idError,
+                "name": error.name
+            }))
+        } else {
+            res.status(400).send()
+        }
     }
 })
 
@@ -36,7 +50,7 @@ router.put('/:id', async (req, res) => {
         })
         const filme = new Filme(data)
         await filme.atualizar()
-        res.status(200).end()
+        res.status(204).end()
     } catch (error) {
         res.status(404).send(error.message)
     }
@@ -51,7 +65,7 @@ router.delete('/:id', async (req, res) => {
             id: id
         })
         await data.deletar(id)
-        res.status(200).send()
+        res.status(204).send()
     } catch (error) {
         res.status(404).send(error.message)
     }

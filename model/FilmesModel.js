@@ -1,4 +1,7 @@
 const filmeSchema = require('../controllers/tableFilmes')
+const {
+    errors
+} = require('../erros/NotFound')
 
 class Filme {
     constructor({
@@ -17,10 +20,24 @@ class Filme {
         this.updatedAt = updatedAt
     }
     async criar() {
+        const fields = [
+            'nome',
+            "genero",
+            "diretor"
+        ]
+        const validFields = {}
+
+        fields.forEach((field) => {
+            const value = this[field]
+            if ((typeof value === 'string' && value.length > 0)) {
+                validFields[field] = value
+            } else {
+                throw new Error("Campo não pode ser vazio")
+            }
+
+        })
         const result = await filmeSchema.inserir({
-            nome: this.nome,
-            genero: this.genero,
-            diretor: this.diretor
+            ...validFields
 
         })
         this.id = result.id,
@@ -48,7 +65,7 @@ class Filme {
         })
         // retorna lista com o nome das chaves
         if (Object.keys(validFields).length === 0) {
-            throw new Error("Não foram fornecidos dados para atualizar")
+            throw new erro
         }
 
         await filmeSchema.atualizar(this.id, validFields)
@@ -56,15 +73,29 @@ class Filme {
 
     async deletar() {
 
-        try {
-            await filmeSchema.deletar(this.id)
-        } catch (error) {
+        //try {
+        const deletar = await filmeSchema.deletar(this.id)
+        if (!deletar) {
             throw new Error("Registro não existente")
-
         }
+        //}
+        //catch (error) {
+        //     throw new Error("Registro não existente")
+
+        // }
+
+
 
     }
 
+    /*  async getByID(this) {
+         try {
+             const get = await filmeSchema.getByID(this.id)
+         } catch (error) {
+             throw new NotFound.NotFound()
+         }
+
+     } */
 }
 
 module.exports = Filme
