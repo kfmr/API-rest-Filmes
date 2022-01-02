@@ -1,6 +1,6 @@
 {
     "Mysql": {
-      "banco": ""
+      "banco": "",
       "user": "",
       "pwd": "",
       "host": "localhost"
