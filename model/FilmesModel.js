@@ -1,6 +1,7 @@
 const filmeSchema = require('../controllers/tableFilmes')
 const NotFound = require('../erros/NotFound')
 const NotEmpty = require('../erros/NotEmpty')
+const EmptyKeys = require('../erros/EmptyKeys')
 
 class Filme {
     constructor({
@@ -64,7 +65,7 @@ class Filme {
         })
         // retorna lista com o nome das chaves
         if (Object.keys(validFields).length === 0) {
-            throw new NotEmpty(field)
+            throw new EmptyKeys()
         }
 
         await filmeSchema.atualizar(this.id, validFields)

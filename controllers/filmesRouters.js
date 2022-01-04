@@ -3,6 +3,7 @@ const Filme = require('../model/FilmesModel')
 const schema = require('./tableFilmes')
 const errors = require('../erros/NotFound')
 const NotEmpty = require('../erros/NotEmpty')
+const EmptyKeys = require('../erros/EmptyKeys')
 
 
 
@@ -18,7 +19,7 @@ router.post('/', async (req, res) => {
         await insertFilme.criar()
         res.status(201).json(insertFilme)
     } catch (error) {
-        if (error instanceof NotEmpty) {
+        if (error instanceof NotEmpty || error instanceof EmptyKeys) {
             res.status(404).send(JSON.stringify({
                 "mensagem": error.message,
                 "id": error.idError,
