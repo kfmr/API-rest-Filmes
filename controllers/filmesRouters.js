@@ -4,12 +4,16 @@ const schema = require('./tableFilmes')
 const errors = require('../erros/NotFound')
 const NotEmpty = require('../erros/NotEmpty')
 const EmptyKeys = require('../erros/EmptyKeys')
+const {
+    SerializeResponse
+} = require('../Serializer.js');
 
 
 
 router.get('/', async (req, res) => {
     const results = await schema.listar()
-    res.status(200).json(results)
+    const serializeReq = new SerializeResponse(res.getHeader('Content-type'))
+    res.status(200).json(serializeReq.serialize(results))
 })
 
 router.post('/', async (req, res) => {

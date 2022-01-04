@@ -6,7 +6,7 @@ class Serializer {
         return JSON.stringify(data)
     }
     serialize(data) {
-        if (this.contentType === 'aplication/json') {
+        if (this.contentType === 'application/json') {
             return data
         }
         throw new NotSupported(this.contentType)
