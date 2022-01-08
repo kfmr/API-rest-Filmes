@@ -13,7 +13,7 @@ const {
 router.get('/', async (req, res) => {
     const results = await schema.listar()
     const serializeReq = new SerializeResponse(res.getHeader('Content-type'))
-    res.status(200).json(serializeReq.serialize(results))
+    res.status(200).send(serializeReq.serialize(results))
 })
 
 router.post('/', async (req, res) => {

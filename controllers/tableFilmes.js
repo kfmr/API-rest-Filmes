@@ -4,7 +4,9 @@ const NotFound = require('../erros/NotFound')
 // exportar métodos do sequelize
 module.exports = {
     async listar() {
-        return await filmeSchema.findAll()
+        return await filmeSchema.findAll({
+            raw: true
+        })
     },
     inserir(filme) {
         return filmeSchema.create(filme)
