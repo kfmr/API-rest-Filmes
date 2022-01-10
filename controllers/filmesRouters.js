@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const Filme = require('../model/FilmesModel')
+const Filme = require('../model/Filmes/FilmesModel')
 const schema = require('./tableFilmes')
 const errors = require('../erros/NotFound')
 const NotEmpty = require('../erros/NotEmpty')

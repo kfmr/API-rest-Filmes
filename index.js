@@ -22,8 +22,7 @@ app.use((req, res, next) => {
     // captura o valor do header e verifica se o index do valor existe na lista
     if (requestFormat === '*/*') {
         requestFormat = 'application/json'
-    }
-    if (requestFormat.indexOf(validFormat) === -1) {
+    } else if (requestFormat.includes(validFormat) === -1) {
         res.status(406).end()
         return
 
@@ -31,6 +30,7 @@ app.use((req, res, next) => {
     // define o cabeçalho - tipo de formato da resposta
     res.setHeader('Content-Type', requestFormat)
     next()
+
 })
 
 app.use('/api/filmes', router)
@@ -65,6 +65,7 @@ app.use((error, req, res, next) => {
     }
     next()
 })
-
+const routerAtores = require('./controllers/Atores/index')
+router.use('/:idFilme/atores', routerAtores)
 
 app.listen(8080, () => console.log("executando"))

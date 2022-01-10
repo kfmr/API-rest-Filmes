@@ -1,7 +1,7 @@
-const filmeSchema = require('../controllers/tableFilmes')
-const NotFound = require('../erros/NotFound')
-const NotEmpty = require('../erros/NotEmpty')
-const EmptyKeys = require('../erros/EmptyKeys')
+const filmeSchema = require('../../controllers/tableFilmes')
+const NotFound = require('../../erros/NotFound')
+const NotEmpty = require('../../erros/NotEmpty')
+const EmptyKeys = require('../../erros/EmptyKeys')
 
 class Filme {
     constructor({

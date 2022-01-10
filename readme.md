@@ -18,3 +18,18 @@
   "createdAt": "2021-12-11T20:01:13.000Z",
   "updatedAt": "2021-12-11T20:01:13.000Z"
 }
+
+<register>
+	<id>7</id>
+	<nome>Yumi's Cells</nome>
+	<genero>Drama</genero>
+	<diretor>Lee Sang-yeob</diretor>
+	<id>8</id>
+	<nome>Yumi's Cells</nome>
+	<genero>Comedy</genero>
+	<diretor>Lee Sang-yeob</diretor>
+	<id>12</id>
+	<nome>Our Beloved Summer</nome>
+	<genero>Drama</genero>
+	<diretor>Kim Yoon-jin</diretor>
+</register>
