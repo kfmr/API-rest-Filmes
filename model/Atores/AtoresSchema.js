@@ -1,31 +1,39 @@
 const Sequelize = require('sequelize')
-const instance = require('./connection')
+const instance = require('../../database/connection')
 
-const columns =  {
+const columns = {
     // chave das colunas
     "nome": {
         type: Sequelize.STRING,
         allowNull: false
 
     },
-    "genero": {
+    "idade": {
         type: Sequelize.STRING,
         allowNull: false
     },
-    "diretor": {
+    "nacionalidade": {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    "filmes": {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+            model: require('../Filmes/Filmeschema'),
+            key: 'id'
+        }
     }
 }
 // nao modificar os nomes dos campos
 const options = {
     freezeTableName: true,
-    tableName: 'filmes',
+    tableName: 'atores',
     timestamps: true
 }
 
 module.exports = instance.define(
-    'filmes',
+    'atores',
     columns,
     options
-    );
+);

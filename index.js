@@ -1,7 +1,7 @@
 const express = require('express')
 const config = require('config')
 const app = express()
-const router = require('./controllers/filmesRouters.js');
+const router = require('./controllers/Filmes/filmesRouters');
 const NotSupported = require('./erros/NotSupported');
 const {
     acceptedFormat

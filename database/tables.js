@@ -1,6 +1,15 @@
-const schema = require('../controllers/tableFilmes')
+const schemasModels = [require('../model/Filmes/Filmeschema'),
+    require('../model/Atores/AtoresSchema')
+]
 
 // sync retorna uma promise
-filmeSchema.sync()
-.then(() =>  console.log("tabela criada"))
-.catch((error) => console.log(error))
+async function createTable() {
+    for (item of schemasModels) {
+        const models = item
+        await models.sync()
+    }
+
+}
+
+
+createTable()

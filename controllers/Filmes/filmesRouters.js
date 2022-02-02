@@ -1,12 +1,12 @@
 const router = require('express').Router()
-const Filme = require('../model/Filmes/FilmesModel')
-const schema = require('./tableFilmes')
-const errors = require('../erros/NotFound')
-const NotEmpty = require('../erros/NotEmpty')
-const EmptyKeys = require('../erros/EmptyKeys')
+const Filme = require('.=../../../model/Filmes/FilmesModel')
+const schema = require('../tableFilmes')
+const errors = require('../../erros/NotFound')
+const NotEmpty = require('../../erros/NotEmpty')
+const EmptyKeys = require('../../erros/EmptyKeys')
 const {
     SerializeResponse
-} = require('../Serializer.js');
+} = require('../../Serializer.js');
 
 
 

@@ -1,4 +1,4 @@
-const filmeSchema = require('../database/schema')
+const filmeSchema = require('../model/Filmes/Filmeschema')
 const NotFound = require('../erros/NotFound')
 
 // exportar métodos do sequelize
