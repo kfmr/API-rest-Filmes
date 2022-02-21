@@ -8,11 +8,15 @@ module.exports = {
             raw: true
         })
     },
-    inserir(filme) {
-        return filmeSchema.create(filme)
+    async inserir(filme) {
+        return await filmeSchema.create(filme)
     },
     async getByID(id) {
-        const found = await filmeSchema.findByPk(id)
+        const found = await filmeSchema.findAll({
+            where: {
+                id: id
+            }
+        })
         if (!found) {
             throw new NotFound.NotFound()
         }

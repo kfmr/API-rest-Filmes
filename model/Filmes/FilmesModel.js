@@ -87,14 +87,15 @@ class Filme {
 
         }
 
-        /*  async getByID(this) {
-             try {
-                 const get = await filmeSchema.getByID(this.id)
-             } catch (error) {
-                 throw new NotFound.NotFound()
-             }
+    }
+    async getByID() {
+        try {
+            await filmeSchema.getByID(this.id)
+        } catch (error) {
+            throw new NotFound.NotFound()
+        }
 
-         } */
     }
 }
+
 module.exports = Filme

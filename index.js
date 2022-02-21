@@ -65,7 +65,26 @@ app.use((error, req, res, next) => {
     }
     next()
 })
-const routerAtores = require('./controllers/Atores/index')
+const routerAtores = require('./controllers/Atores/index');
+const {
+    NotFound
+} = require('./erros/NotFound');
+const Filme = require('./model/Filmes/FilmesModel');
+
+// const checkMovie = async (req, res, next) => {
+//     try {
+//         const id = req.params.idFilme
+//         const movie = new Filme({
+//             id: id
+//         })
+//         await movie.getByID()
+//         req.movie = movie
+//         next()
+//     } catch (error) {
+//         next(error)
+//     }
+// }
+
 router.use('/:idFilme/atores', routerAtores)
 
 app.listen(8080, () => console.log("executando"))

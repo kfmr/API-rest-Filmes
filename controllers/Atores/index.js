@@ -11,8 +11,23 @@ router.get('/', async (req, res) => {
     res.status(200).json(atores)
 })
 
+router.get('/:id', async (req, res, next) => {
+    try {
+        const data = {
+            id: req.params.id,
+            filmes: req.params.idFilme
 
-router.post('/', async (req, res) => {
+        }
+        const getAtor = new Ator(data)
+        const result = await getAtor.getByID()
+        res.status(200).send(result)
+
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
+
+router.post('/', async (req, res, next) => {
     try {
         const idFilme = req.params.idFilme;
         console.log(idFilme)
@@ -26,7 +41,6 @@ router.post('/', async (req, res) => {
             filmes: idFilme
         })
         const ator = new Ator(data)
-        console.log(ator)
         await ator.create()
         res.status(201).json(ator).end()
     } catch (error) {
@@ -37,6 +51,20 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     res.status(200).json("put")
 
+})
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const data = {
+            id: req.params.id,
+            filmes: req.params.idFilme
+        }
+        const ator = new Ator(data)
+        await ator.delete()
+        res.status(204).end()
+    } catch (error) {
+        res.status(400).send(error)
+    }
 })
 
 module.exports = router

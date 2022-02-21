@@ -12,25 +12,30 @@ module.exports = {
     inserir(data) {
         return atorSchema.create(data)
     },
-    async getByID(id) {
-        const found = await atorSchema.findByPk(id)
-        if (!found) {
-            throw new NotFound.NotFound()
-        }
+    async getByID(id, idFilme) {
+        const found = await atorSchema.findOne({
+            where: {
+                id: id,
+                filmes: idFilme
+            },
+            raw: true
+        })
         return found
     },
 
-    async atualizar(id, validFields) {
+    async atualizar(idFilme, idAtor, validFields) {
         return await atorSchema.update(validFields, {
             where: {
-                id: id
+                idFilme: idFilme,
+                idAtor: idAtor
             }
         })
 
     },
-    async deletar(id) {
+    async deletar(idFilme, id) {
         return await atorSchema.destroy({
             where: {
+                filmes: idFilme,
                 id: id
             }
         })
