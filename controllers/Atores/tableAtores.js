@@ -20,15 +20,13 @@ module.exports = {
             },
             raw: true
         })
+
         return found
     },
 
-    async atualizar(idFilme, idAtor, validFields) {
-        return await atorSchema.update(validFields, {
-            where: {
-                idFilme: idFilme,
-                idAtor: idAtor
-            }
+    async atualizar(dataAtor, dataUpdate) {
+        return await atorSchema.update(dataUpdate, {
+            where: dataAtor
         })
 
     },

@@ -63,11 +63,22 @@ class SerializerErro extends SerializeResponse {
     }
 }
 
+class SerializerAtor extends SerializeResponse {
+    constructor(contentType, extraFields) {
+        super()
+        this.contentType = contentType
+        this.publicFields = ['id', 'nome', 'idade', 'nacionalidade'].concat(extraFields) || []
+        this.tagSingular = 'ator'
+        this.tagPlural = 'atores'
+
+    }
+}
 const validFormat = ['application/json', 'application/xml']
 
 module.exports = {
     Serializer: Serializer,
     validFormat: validFormat,
     SerializeResponse: SerializeResponse,
-    SerializerErro: SerializerErro
+    SerializerErro: SerializerErro,
+    SerializerAtor: SerializerAtor
 }
